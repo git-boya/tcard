@@ -39,6 +39,9 @@ class TCard extends StatefulWidget {
   /// How long does it have to wait until the next slide is sliable? less is quicker. 100 is fast enough. 500 is a bit slow.
   final int delaySlideFor;
 
+  /// 初始index
+  final int initIndex;
+
   const TCard({
     required this.cards,
     this.controller,
@@ -49,6 +52,7 @@ class TCard extends StatefulWidget {
     this.slideSpeed = 20,
     this.delaySlideFor = 500,
     this.size = const Size(380, 400),
+    this.initIndex = 0,
   })  : assert(cards != null),
         assert(cards.length > 0);
 
@@ -366,7 +370,12 @@ class TCardState extends State<TCard> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-
+    ///增加代码
+    _frontCardIndex = widget.initIndex;
+    for (int i = 0; i < _frontCardIndex; i ++) {
+      _swipeInfoList.add(SwipeInfo(i, SwipeDirection.Left));
+    }
+    ///增加代码结果
     // 初始化所有传入的卡片
     _cards.addAll(widget.cards);
 
